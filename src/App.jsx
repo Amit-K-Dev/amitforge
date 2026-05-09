@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { Navbar } from "@/components/layout/navbar";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Footer } from "@/components/layout/footer";
+import { BackToTop } from "@/components/ui/back-to-top";
 
 import Home from "@/pages/home";
 import Projects from "@/pages/projects";
@@ -53,16 +54,19 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <main className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background text-foreground">
         <ScrollProgress />
 
         <Navbar />
         <Sidebar />
 
-        <AnimatedRoutes />
+        <main>
+          <AnimatedRoutes />
+        </main>
 
         <Footer />
-      </main>
+        <BackToTop />
+      </div>
     </BrowserRouter>
   );
 }

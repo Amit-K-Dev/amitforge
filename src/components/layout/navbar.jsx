@@ -31,23 +31,24 @@ export function Navbar() {
     <header
       className={`
         fixed left-1/2 z-50
-        w-[92%] max-w-5xl
-        -translate-x-1/2
-        rounded-full
+        w-[94%] max-w-5xl
+        -translate-x-1/2 rounded-full
         border border-white/10
         bg-background/72
         shadow-[0_12px_50px_rgba(0,0,0,0.28)]
-        backdrop-blur-3xl transition-all duration-500 ${scrolled ? "top-3 scale-[0.985]" : "top-5 scale-100"}
+        backdrop-blur-3xl
+        transition-all duration-500
+        ${scrolled ? "top-3 scale-[0.985]" : "top-5 scale-100"}
       `}
     >
-      {/* subtle inner line */}
-      <div className="absolute inset-0 rounded-full ring-1 ring-white/5 pointer-events-none" />
+      {/* subtle ring */}
+      <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/5" />
 
-      <div className="relative flex items-center justify-between px-5 py-2.5 md:px-7">
+      <div className="relative flex items-center justify-between px-4 py-2.5 md:px-7">
         {/* brand */}
         <Link
           to="/"
-          className="group flex shrink-0 items-center gap-2 text-lg font-black tracking-tight"
+          className="group flex shrink-0 items-center gap-2 text-base font-black tracking-tight md:text-lg"
         >
           <span className="transition-all duration-300 group-hover:text-primary">
             {brand.name}
@@ -58,45 +59,50 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* nav */}
-        <div className="flex items-center gap-1 md:gap-2">
-          {navItems.map((item) => {
-            const active = location.pathname === item.path;
+        {/* right side */}
+        <div className="flex items-center gap-2">
+          {/* desktop nav */}
+          <div className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => {
+              const active = location.pathname === item.path;
 
-            return (
-              <Link key={item.path} to={item.path}>
-                <button
-                  className={`
-                    rounded-full px-4 py-2 text-sm font-medium
-                    transition-all duration-300
-                    ${
-                      active
-                        ? "bg-primary/12 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.12),inset_0_0_0_1px_hsl(var(--primary)/0.18)]"
-                        : "text-muted-foreground hover:bg-white/5 hover:text-foreground hover:scale-[1.03]"
-                    }
-                  `}
-                >
-                  {item.name}
-                </button>
-              </Link>
-            );
-          })}
+              return (
+                <Link key={item.path} to={item.path}>
+                  <button
+                    className={`
+                      rounded-full px-4 py-2 text-sm font-medium
+                      transition-all duration-300
+                      ${
+                        active
+                          ? "bg-primary/12 text-primary shadow-[0_0_20px_hsl(var(--primary)/0.12),inset_0_0_0_1px_hsl(var(--primary)/0.18)]"
+                          : "text-muted-foreground hover:bg-white/5 hover:text-foreground hover:scale-[1.03]"
+                      }
+                    `}
+                  >
+                    {item.name}
+                  </button>
+                </Link>
+              );
+            })}
+          </div>
 
+          {/* always visible */}
           <ThemeToggle />
 
+          {/* menu */}
           <Button
             onClick={toggleSidebar}
             aria-label="Sidebar Menu"
             className="
-  h-11 gap-2 rounded-full px-5
-  font-medium
-  shadow-[0_0_25px_hsl(var(--primary)/0.22)]
-  hover:scale-[1.04]
-  hover:shadow-[0_0_35px_hsl(var(--primary)/0.35)]
-  transition-all duration-300
-"
+              h-10 gap-2 rounded-full px-4 md:h-11 md:px-5
+              font-medium
+              shadow-[0_0_25px_hsl(var(--primary)/0.22)]
+              transition-all duration-300
+              hover:scale-[1.04]
+              hover:shadow-[0_0_35px_hsl(var(--primary)/0.35)]
+            "
           >
-            <span>Menu</span>
+            <span className="hidden sm:inline">Menu</span>
             <Menu size={17} />
           </Button>
         </div>
